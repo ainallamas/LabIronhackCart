@@ -1,9 +1,15 @@
 // ITERATION 1
+//En este caso el price está en string, no está en número ->
+//Por eso tenemos que utilizar un método que nos pase de String a Number para poder multiplicarlo.
+//Este método es el parseInt().
+
+//No podemos utilizar el querySelectorAll porque se nos crearía una Array.
 
 function updateSubtotal(product) {
-  console.log('Calculating subtotal, yey!');
-
-  //... your code goes here
+  const price = product.querySelector('.price span').innerText; //Para coger el texto del span. El innerHTML l'utilitzariem per poder substituir-lo.
+  const quantity = product.querySelector('.quantity input').value;
+  let subtotal = product.querySelector('.subtotal span');
+  subtotal.innerText = parseInt(price) * quantity;
 }
 
 function calculateAll() {
@@ -14,11 +20,30 @@ function calculateAll() {
   // end of test
 
   // ITERATION 2
-  //... your code goes here
+  //Aquí tenemos que hacer que el Subtotal se aplique para todos los productos.
+  //No podemos acceder a variables que estén dentro de otra función y, por tanto, tenemos que volver a crearlas.
+  //Con el querySelectorAll nos creará una array con los productos y tendremos que correr la array:
+  let products = document.querySelectorAll('.product');
+
+  //Este for pasaremos por todos y cada uno de los productos del Array.
+  //Que este array está formado por los productos dentro del nodo "product". En este momento -> 2 productos.
+  //Es una función que necesita un argumento ->
+  for (let i = 0; i < products.length; i++) {
+    updateSubtotal(products[i]); //llamamos la función
+  }
 
   // ITERATION 3
-  //... your code goes here
+  //Aquí he de tornar a cridar la funció per tenir els preus i les quantitats actualitzades.
+  let total = 0;
+  products = document.querySelectorAll('.product'); //Per actualitzar el preu del subtotal.
+  for (let i = 0; i < products.length; i++) {
+    let subtotal = products[i].querySelector('.subtotal span');
+    total += Number(subtotal.innerText); //Cada vegada que dona una volta suma a l'anterior producte.
+  }
+
+  document.querySelector('#total-value span').innerHTML = total;
 }
+
 
 // ITERATION 4
 
